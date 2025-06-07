@@ -72,7 +72,8 @@ class Testing(unittest.TestCase):
     pass
 
 
-    # function 1
+# function 1
+
     def test_search_movie1(self):
         self.assertTrue(search_movie("Barbie", "titles.txt"))
 
@@ -86,14 +87,14 @@ class Testing(unittest.TestCase):
         titles = [movie.title for movie in result]
         expected_titles = ["Shrek", "Superbad", "The Godfather"]
         self.assertCountEqual(titles, expected_titles)
-        print(expected_titles)
+
 
     def test_movies_above_rating2(self):
         result = functions.movies_above_rating(reduced_data, 8.0)
         titles = [movie.title for movie in result]
         expected_titles = ["The Godfather"]
         self.assertCountEqual(titles, expected_titles)
-        print(expected_titles)
+
 
 # function 3
 
@@ -102,14 +103,14 @@ class Testing(unittest.TestCase):
         sorted_titles = [movie.title for movie in result]
         expected_titles = ["Barbie", "Shrek", "Superbad", "The Godfather"]
         self.assertEqual(sorted_titles, expected_titles)
-        print(sorted_titles)
+
 
     def test_sort_alpha2(self):
         result = functions.sort_alpha(reduced_data)
         sorted_titles = [movie.title for movie in result]
         expected_titles = ["Barbie", "Superbad", "Shrek", "The Godfather"]
         self.assertIsNot(sorted_titles, expected_titles)
-        print(sorted_titles)
+
 
 # function 4
 
@@ -120,17 +121,64 @@ class Testing(unittest.TestCase):
                     0.98 * 1400000000 +
                     0.55 * 250342198) / 4
         self.assertEqual(result, expected)
-        print(result)
+
 
     def test_average_sales_by_region2(self):
-        result = functions.average_sales_by_region(reduced_data, "Antarcatica")
+        result = functions.average_sales_by_region(reduced_data, "Antarctica")
         expected = (0)
         self.assertEqual(result, expected)
-        print(result)
+
+# function 5
+
+    def test_children_movies(self):
+       result = functions.children_movies(reduced_data)
+       expected = ["Shrek"]
+       self.assertEqual(expected, result)
 
 
+    def test_children_movies1(self):
+       result = len(functions.children_movies(reduced_data))
+       expected = 1
+       self.assertEqual(expected, result)
+
+# function 6
+
+    def test_young_adult_movies(self):
+       result = functions.young_adult_movies(reduced_data)
+       expected = ["Barbie", "Shrek"]
+       self.assertEqual(expected, result)
 
 
+    def test_young_adult_movies1(self):
+       result = len(functions.young_adult_movies(reduced_data))
+       expected = 2
+       self.assertEqual(expected, result)
+
+# function 7
+
+    def test_sorted_by_genre(self):
+       result = functions.sorted_by_genre(reduced_data, "Comedy")
+       expected = ["Barbie", "Shrek", "Superbad" ]
+       self.assertEqual(expected, result)
+
+
+    def test_sorted_by_genre1(self):
+       result = functions.sorted_by_genre(reduced_data, "Romance")
+       expected = ["Shrek"]
+       self.assertEqual(expected, result)
+
+# function 8
+
+    def test_run_time(self):
+       result = functions.run_time_less_than(reduced_data, 115)
+       expected = ["Shrek", "Barbie"]
+       self.assertEqual(expected, result)
+
+
+    def test_run_time1(self):
+       result = functions.run_time_less_than(reduced_data, 190)
+       expected = ["Shrek", "Superbad", "Barbie", "The Godfather"]
+       self.assertEqual(expected, result)
 
 
 

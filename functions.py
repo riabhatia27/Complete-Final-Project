@@ -65,27 +65,61 @@ def average_sales_by_region(movies: list[Movie], region: str) -> float:
 
     return total_sales / count if count > 0 else 0.0
 
-# user input function
 
 
-def check_movie_subtitles(movies: list):
+# This function sorts through movies of an appropriate maturity rating (for things like parental controls)
+# input: a list of movies
+# output: a list of movie titles
 
-    movie_title = input("Enter the movie title: ").strip()
-    language = input("Enter the language to check for subtitles: ").strip()
 
-    for movie in movies:
-        if movie.title.lower() == movie_title.lower():
-            has_subs = movie.subtitles.get(language, None)
-            if has_subs is True:
-                print(f" '{movie.title}' has subtitles in {language}.")
-            elif has_subs is False:
-                print(f" '{movie.title}' does NOT have subtitles in {language}.")
-            else:
-                print(f"️ '{language}' subtitles are not listed for '{movie.title}'.")
-            return
+def children_movies(movies: list[data.Movie]) -> list[str]:
+   sorted_list = []
+   for movie in movies:
+       if movie.maturity == "G" or movie.maturity == "PG":
+           sorted_list.append(movie.title)
+   return sorted_list
 
-    print(f"Movie titled '{movie_title}' not found.")
 
-check_movie_subtitles(reduced_data)
+# This function sorts through movies of an appropriate maturity level
+# input: a list of movies
+# output: a list of movie titles
+
+def young_adult_movies(movies: list[data.Movie]) -> list[str]:
+   sorted_list = []
+   for movie in movies:
+       if movie.maturity =="G" or movie.maturity == "PG" or movie.maturity =="PG-13":
+           sorted_list.append(movie.title)
+   return sorted_list
+
+
+# This function sorts the movies by genre and alphabetically
+# input: a list of movies and a genre
+# output a sorted list of movies of a single genre
+
+def sorted_by_genre(movies: list[data.Movie], genre_type: str) -> list[str]:
+   sorted_list = []
+   for movie in movies:
+       if genre_type in movie.genre: #sorts through only the movies of a certain genre
+          sorted_list.append(movie.title) #creates a list of the movies of a certain genre
+   for i in range(len(sorted_list)-1):
+       smallest_idx = i
+       for j in range(i + 1, len(sorted_list)):
+           if sorted_list[j] < sorted_list[smallest_idx]:
+               smallest_idx = j
+       sorted_list[i], sorted_list[smallest_idx] = sorted_list[smallest_idx], sorted_list[i]
+   return sorted_list
+
+
+# This function sorts the list of movies by run time
+#input: list of movies and a time limit
+#output: returns a list of movie titles with a runtime less than a certain time
+
+def run_time_less_than( movies: list[data.Movie], time: float) -> list[str]:
+   sorted_list = []
+   for movie in movies:
+       if movie.duration <= time:
+           sorted_list.append(movie.title)
+   return sorted_list
+
 
 
